@@ -22,7 +22,7 @@ export default function Slide1() {
 
           {/* Vertical label */}
           <div className="font-inter text-[#c8952a] font-semibold tracking-[0.22em] uppercase" style={{ fontSize: "0.6rem", writingMode: "vertical-lr", letterSpacing: "0.25em" }}>
-            TFJ20I &nbsp; · &nbsp; 2026
+            TFJ20I &nbsp; · &nbsp; April 2nd
           </div>
         </div>
 
@@ -93,7 +93,7 @@ export default function Slide1() {
               { label: "Student",  value: "Abdullah Shaikh" },
               { label: "Teacher",  value: "Ms Prasad" },
               { label: "Course",   value: "TFJ20I" },
-              { label: "Date",     value: "June 26th, 2026" },
+              { label: "Date",     value: "Thursday, April 2nd" },
             ].map(row => (
               <div key={row.label} className="flex items-baseline gap-3">
                 <span
