@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --parchment: #f4ede0;
+  --parchment-dark: #ecdcc8;
+  --ink: #1a1510;
+  --ink-light: #3d3428;
+  --terracotta: #b5462a;
+  --terracotta-light: #d4623e;
+  --gold: #c8952a;
+  --gold-light: #e8b84b;
+  --sage: #6b8f71;
+  --cream-white: #fdfaf5;
+  --border-warm: #d8c8ac;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-parchment: var(--parchment);
+  --color-ink: var(--ink);
+  --color-terracotta: var(--terracotta);
+  --color-gold: var(--gold);
+  --color-sage: var(--sage);
+  --font-playfair: var(--font-playfair);
+  --font-inter: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-playfair { font-family: var(--font-playfair), Georgia, serif; }
+.font-inter    { font-family: var(--font-inter), system-ui, sans-serif; }
+
+/* ── Slideshow shell ── */
+.slide-viewport {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  transform: translateX(32px);
+}
+.slide.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0);
+}
+
+/* ── Nav ── */
+.nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--terracotta);
+  opacity: 0.25;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.nav-dot.active {
+  opacity: 1;
+  width: 20px;
+  border-radius: 3px;
+}
+
+.nav-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border-warm);
+  background: var(--cream-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--ink);
+}
+.nav-arrow:hover {
+  background: var(--terracotta);
+  border-color: var(--terracotta);
+  color: white;
+}
+.nav-arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+.nav-arrow:disabled:hover {
+  background: var(--cream-white);
+  border-color: var(--border-warm);
+  color: var(--ink);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up          { animation: fadeUp 0.6s ease-out both; }
+.fade-up-d1       { animation: fadeUp 0.6s 0.10s ease-out both; }
+.fade-up-d2       { animation: fadeUp 0.6s 0.22s ease-out both; }
+.fade-up-d3       { animation: fadeUp 0.6s 0.34s ease-out both; }
+.fade-up-d4       { animation: fadeUp 0.6s 0.46s ease-out both; }
+
+@keyframes drawLine {
+  from { stroke-dashoffset: 300; }
+  to   { stroke-dashoffset: 0; }
+}
+.draw-line {
+  stroke-dasharray: 300;
+  animation: drawLine 1s 0.3s ease-out both;
+}
+
+/* ── Utility ── */
+.slide-counter {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ink-light);
+  opacity: 0.5;
+}
+
+/* Subtle grid bg overlay */
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border-warm) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-warm) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* Ink stripe accent */
+.ink-stripe {
+  background: var(--ink);
+}
+
+/* Tag pill */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--terracotta);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
