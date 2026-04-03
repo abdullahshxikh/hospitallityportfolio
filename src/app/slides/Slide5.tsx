@@ -106,7 +106,7 @@ export default function Slide5() {
             style={{ border: "1.5px solid #d8c8ac" }}
           >
             <Image
-              src="/assets/whms.png"
+              src="/assets/whms2.png"
               alt="WHMIS pictogram symbols chart"
               width={800}
               height={500}
